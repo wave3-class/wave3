@@ -1,13 +1,14 @@
 from PIL import Image
 import wave
 import numpy
+import sys
 
 FRAME_RATE = 44100
 
-def make_wave_file(data):
+def make_wave_file(data, channel):
     w = wave.open("out.wav","w")
     w.setframerate(FRAME_RATE)
-    w.setnchannels(1)
+    w.setnchannels(channel)
     w.setsampwidth(2)
     w.writeframes(data) 
     w.close()
@@ -30,12 +31,20 @@ def read_bmp(fname1,fname2):
                 data[i][j] = r1*256+r2-32768
     return data
 
-def main():    
-    fname1 = input("ファイル名１を入力してください ")
-    fname2 = input("ファイル名２を入力してください ")
+def main():
+    args = sys.argv
+    # fname1 = input("ファイル名１を入力してください ")
+    # fname2 = input("ファイル名２を入力してください ")
+    if len(args)<4:
+        print("コマンドライン引数として")
+        print("ファイル名１ ファイル名２ チャンネル数")
+        print("として入力してください")
+    fname1 = args[0]
+    fname2 = args[1]
+    channel = (int)(args[2])
     tmp_data = read_bmp(fname1, fname2)
     data = numpy.array(tmp_data)
-    make_wave_file(data)
+    make_wave_file(data, channel)
 
 if __name__ == "__main__":
     main()
