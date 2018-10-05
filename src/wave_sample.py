@@ -39,9 +39,9 @@ def main():
         print("コマンドライン引数として")
         print("ファイル名１ ファイル名２ チャンネル数")
         print("として入力してください")
-    fname1 = args[0]
-    fname2 = args[1]
-    channel = (int)(args[2])
+    fname1 = args[1]
+    fname2 = args[2]
+    channel = (int)(args[3])
     tmp_data = read_bmp(fname1, fname2)
     data = numpy.array(tmp_data)
     make_wave_file(data, channel)
