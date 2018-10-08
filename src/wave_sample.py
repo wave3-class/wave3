@@ -27,9 +27,10 @@ def read_bmp(fname1,fname2):
             r1,g1,b1 = img1_rgb.getpixel((i,j))
             r2,g2,b2 = img2_rgb.getpixel((i,j))
             if i==0 and j==0:
-                print(r1)
-                if r1!=0:
-                    img1_rgb, img2_rgb = img2_rgb, img1_rgb
+                # print(r1)
+                # if r1!=0:
+                #     img1_rgb, img2_rgb = img2_rgb, img1_rgb
+                continue
             else:
                 #data[i][j] = r1*256+r2-32768
                 data.append(r1*256+r2-32768)
