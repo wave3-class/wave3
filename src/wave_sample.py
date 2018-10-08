@@ -27,28 +27,27 @@ def read_bmp(fname1,fname2):
             r1,g1,b1 = img1_rgb.getpixel((i,j))
             r2,g2,b2 = img2_rgb.getpixel((i,j))
             if i==0 and j==0:
-                # print(r1)
-                # if r1!=0:
-                #     img1_rgb, img2_rgb = img2_rgb, img1_rgb
-                continue
+                if r1!=0:
+                    img1_rgb, img2_rgb = img2_rgb, img1_rgb
+            elif i==1 and j==0:
+                channel = r1
             else:
                 #data[i][j] = r1*256+r2-32768
                 data.append(r1*256+r2-32768)
-    return data
+    return data,channel
 
 def main():
     args = sys.argv
     # fname1 = input("ファイル名１を入力してください ")
     # fname2 = input("ファイル名２を入力してください ")
-    if len(args)<4:
+    if len(args)<3:
         print("コマンドライン引数として")
-        print("ファイル名１ ファイル名２ チャンネル数")
+        print("ファイル名１ ファイル名２")
         print("を入力してください")
     else:
         fname1 = args[1]
         fname2 = args[2]
-        channel = (int)(args[3])
-        tmp_data = read_bmp(fname1, fname2)
+        tmp_data, channel = read_bmp(fname1, fname2)
         #data = array.array(tmp_data)
         make_wave_file(array.array('h',tmp_data), channel)
 
