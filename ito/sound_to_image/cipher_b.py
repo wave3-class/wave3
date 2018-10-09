@@ -41,8 +41,8 @@ def get_data(sound):
         b2 = b1
         b1 = b1 // 16
         b2 = b2 % 16
-        data_a.append(a1*16+b1)
-        data_b.append(a2*16+b2)
+        data_a.append(a1+b1*16)
+        data_b.append(a2+b2*16)
     data = [data_a, data_b, channels]
     return data
 
