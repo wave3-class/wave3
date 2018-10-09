@@ -34,6 +34,7 @@ def get_data(sound):
         data_a.append(tmp//256)
         data_b.append(tmp%256)
     data = [data_a, data_b]
+    print(buffer)
     return data
 
 
