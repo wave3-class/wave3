@@ -29,7 +29,7 @@ def read_bmp(fname1,fname2):
             r2p = r2%16
             r1 = r1//16
             r2 = r1%16
-            r1 = r1*16+r1p
+            r1 = r1+r1p*16
             r2 = r2*16+r2p
             if i==0 and j==0:
                 # if r1!=0:
