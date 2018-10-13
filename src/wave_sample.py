@@ -25,12 +25,12 @@ def read_bmp(fname1,fname2):
         for j in range(size[1]):
             r1,g1,b1 = img1_rgb.getpixel((i,j))                     #RGB情報の取得(1)
             r2,g2,b2 = img2_rgb.getpixel((i,j))                     #RGB情報の取得(2)
-            r1p = r2//16
-            r2p = r2%16
-            r1 = r1//16
-            r2 = r1%16
-            r1 = r1+r1p*16
-            r2 = r2*16+r2p
+            a1 = r1%16
+            a2 = r2%16
+            b1 = r1//16
+            b2 = r2//16
+            r1 = a1*16+a2
+            r2 = b1*16+b2
             if i==0 and j==0:
                 # if r1!=0:
                 #     img1_rgb, img2_rgb = img2_rgb, img1_rgb         #上下の交換
