@@ -10,7 +10,6 @@ import math
 import numpy
 import array
 
-global FILENAMW
 IMG1="a.bmp"
 IMG2="b.bmp"
 FRAME_RATE = 44100
@@ -112,35 +111,36 @@ def read_bmp(fname1,fname2):
                 data.append(r1*256+r2-32768)                        #データの追加
     return data
 
-def dialog():
-    fTyp = [("","*.wav")]
-    iDir = os.path.abspath(os.path.dirname(__file__))
+def dialog():                                                          #ダイアログ作成
+    fTyp = [("","*.wav")]                                               #拡張子限定
+    iDir = os.path.abspath(os.path.dirname(__file__))                    #ディレクリ変数
     tkinter.messagebox.showinfo("wave","入力ファイルを選択してください！")
     filename = tkinter.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
-    #filename=(os.path.basename(filename))
-    return filename   #フルパス
+    #filename=(os.path.basename(filename))                    #ファイル名
+    return filename                                           #フルパスを戻り値
 
-def encode(self):
-    FILENAME = dialog()
-    #変換して2つのファイルを保存
-    w=wave.open(FILENAME)
-    print_info(w)
-    make_cip(get_data(w))
+def encode(self):                                             #ボタン1の処理、二枚の画像に変換
+    fname = dialog()                                          #ダイアログ作成
+    w=wave.open(fname)                                        #入力ファイルを開く   
+    print_info(w)                                             #情報の出力     
+    make_cip(get_data(w))                                     #画像ファイルの出力
 
-def show_img1(self):
+def show_img1(self):                                          #ボタン2の処理
     img = Image.open(IMG1)
     img.show()
 
-def show_img2(self):
+def show_img2(self):                                          #ボタン3の処理
     img = Image.open(IMG2)
     img.show()
 
-def decode(self):
+def decode(self):                                             #ボタン4の処理、画像を音声に逆変換
     channel = 2
-    tmp_data = read_bmp(IMG1,IMG2)
-    make_wave_file(array.array('h', tmp_data), channel)
+    tmp_data = read_bmp(IMG1,IMG2)                            #画像読み込み
+    make_wave_file(array.array('h', tmp_data), channel)       #音声ファイルの出力
     print("out.wavを保存しました。")
 
+#----ボタン作成----    
+    
 def mk_button1():
     button = tkinter.Button(text=u"変換",width=15,bg="blue")
     button.bind("<Button-1>",encode)
@@ -160,6 +160,8 @@ def mk_button4():
     button = tkinter.Button(text=u"復号化",width=15,bg="blue")
     button.bind("<Button-1>",decode)
     button.place(x=250,y=250)
+    
+#---------------
 
 if __name__ == "__main__":
     root = tkinter.Tk()
