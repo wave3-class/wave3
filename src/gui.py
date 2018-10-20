@@ -17,7 +17,7 @@ input_name = "input.wav"
 output_name = "output.tmp"
 img1 = NONE          #PhotoImgaeはガーベジコレクションとして削除されるため、グローバル変数に設定
 img2 = NONE
-
+info = NONE 
 
 
 def print_info(sound):
@@ -126,6 +126,9 @@ def encode(self):                                             #ボタン1の処�
     w=wave.open(fname)                                        #入力ファイルを開く   
     print_info(w)                                             #情報の出力     
     make_cip(get_data(w))                                     #画像ファイルの出力
+    global info
+    info = tkinter.Label(root,text="音声は画像に変換されました！",font=16)
+    info.place(x=150,y=500)
 
 def show_img1(event):                                          #ボタン2の処理
     global img1        
@@ -158,6 +161,8 @@ def decode(event):                                            #ボタン4の処�
     tmp_data = read_bmp(IMG1,IMG2)                            #画像読み込み
     make_wave_file(array.array('h', tmp_data), channel)       #音声ファイルの出力
     print("out.wavを保存しました。")
+    global info
+    info.config(text="音声に逆変換しました！",font=16)
 
 #----ボタン作成----    
     
