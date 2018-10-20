@@ -15,6 +15,8 @@ IMG2="b.bmp"
 FRAME_RATE = 44100
 input_name = "input.wav"
 output_name = "output.tmp"
+img1 = NONE          #PhotoImgaeはガーベジコレクションとして削除されるため、グローバル変数に設定
+img2 = NONE
 
 
 
@@ -125,15 +127,33 @@ def encode(self):                                             #ボタン1の処�
     print_info(w)                                             #情報の出力     
     make_cip(get_data(w))                                     #画像ファイルの出力
 
-def show_img1(self):                                          #ボタン2の処理
-    img = Image.open(IMG1)
-    img.show()
+def show_img1(event):                                          #ボタン2の処理
+    global img1        
+    img1 = ImageTk.PhotoImage(Image.open(IMG1))
+    sub = Toplevel(root)
+    sub.title(IMG1)
+    frame = tkinter.Frame(sub)
+    frame.pack()
+    label = tkinter.Label(frame, image=img1)
+    label.pack()
+    button = Button(sub, text="閉じる", command=sub.destroy)
+    button.pack()
+    sub.grab_set()                                             #サブウィンドウにフォーカスを当てる
 
-def show_img2(self):                                          #ボタン3の処理
-    img = Image.open(IMG2)
-    img.show()
+def show_img2(event):                                          #ボタン3の処理
+    global img2
+    img2 = ImageTk.PhotoImage(Image.open(IMG2))
+    sub = Toplevel(root)
+    sub.title(IMG2)
+    frame = tkinter.Frame(sub)
+    frame.pack()
+    label = tkinter.Label(frame, image=img2)
+    label.pack()
+    button = Button(sub, text="閉じる", command=sub.destroy)    
+    button.pack()
+    sub.grab_set()                                            #サブウィンドウにフォーカスを当てる
 
-def decode(self):                                             #ボタン4の処理、画像を音声に逆変換
+def decode(event):                                            #ボタン4の処理、画像を音声に逆変換
     channel = 2
     tmp_data = read_bmp(IMG1,IMG2)                            #画像読み込み
     make_wave_file(array.array('h', tmp_data), channel)       #音声ファイルの出力
@@ -142,31 +162,31 @@ def decode(self):                                             #ボタン4の処�
 #----ボタン作成----    
     
 def mk_button1():
-    button = tkinter.Button(text=u"変換",width=15,bg="blue")
+    button = tkinter.Button(text=u"変換",width=20,height=3,bg="blue")
     button.bind("<Button-1>",encode)
-    button.place(x=50,y=250)
+    button.place(x=200,y=300)
 
 def mk_button2():
-    button = tkinter.Button(text=u"画像1を表示",width=15,bg="green")
+    button = tkinter.Button(text=u"画像1を表示",width=20,height=3,bg="green")
     button.bind("<Button-1>",show_img1)
-    button.place(x=150,y=150)
+    button.place(x=400,y=200)
 
 def mk_button3():
-    button = tkinter.Button(text=u"画像2を表示",width=15,bg="green")
+    button = tkinter.Button(text=u"画像2を表示",width=20,height=3,bg="green")
     button.bind("<Button-1>",show_img2)
-    button.place(x=150,y=350)
+    button.place(x=400,y=400)
 
 def mk_button4():
-    button = tkinter.Button(text=u"復号化",width=15,bg="blue")
+    button = tkinter.Button(text=u"復号化",width=20,height=3,bg="blue")
     button.bind("<Button-1>",decode)
-    button.place(x=250,y=250)
+    button.place(x=600,y=300)
     
 #---------------
 
 if __name__ == "__main__":
     root = tkinter.Tk()
     root.title("title")
-    root.geometry("500x500")
+    root.geometry("950x600")
     mk_button1()
     mk_button2()
     mk_button3()
