@@ -164,27 +164,11 @@ def decode(event):                                            #ボタン4の処�
     global info
     info.config(text="音声に逆変換しました！",font=16)
 
-#----ボタン作成----    
-    
-def mk_button1():
-    button = tkinter.Button(text=u"変換",width=20,height=3,bg="blue")
-    button.bind("<Button-1>",encode)
-    button.place(x=200,y=300)
-
-def mk_button2():
-    button = tkinter.Button(text=u"画像1を表示",width=20,height=3,bg="green")
-    button.bind("<Button-1>",show_img1)
-    button.place(x=400,y=200)
-
-def mk_button3():
-    button = tkinter.Button(text=u"画像2を表示",width=20,height=3,bg="green")
-    button.bind("<Button-1>",show_img2)
-    button.place(x=400,y=400)
-
-def mk_button4():
-    button = tkinter.Button(text=u"復号化",width=20,height=3,bg="blue")
-    button.bind("<Button-1>",decode)
-    button.place(x=600,y=300)
+#----ボタン作成---- 
+def mk_button(str,c,func,bx,by,wd=20,ht=3):
+    button = tkinter.Button(text=str,width=wd,height=ht,bg=c)
+    button.bind("<Button-1>",func)
+    button.place(x=bx,y=by)
     
 #---------------
 
@@ -192,9 +176,9 @@ if __name__ == "__main__":
     root = tkinter.Tk()
     root.title("title")
     root.geometry("950x600")
-    mk_button1()
-    mk_button2()
-    mk_button3()
-    mk_button4()
+    mk_button(str="変換",c="blue",bx=200,by=300,func=encode)
+    mk_button(str="画像1を表示",c="green",bx=400,by=200,func=show_img1)
+    mk_button(str="画像2を表示",c="green",bx=400,by=400,func=show_img2)
+    mk_button(str="復号",c="blue",bx=600,by=300,func=decode)
     root.mainloop()
     
