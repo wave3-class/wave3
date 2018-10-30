@@ -25,12 +25,7 @@ def read_bmp(fname1,fname2):
         for j in range(size[1]):
             r1,g1,b1 = img1_rgb.getpixel((i,j))                     #RGB情報の取得(1)
             r2,g2,b2 = img2_rgb.getpixel((i,j))                     #RGB情報の取得(2)
-            a1 = r1%16
-            a2 = r2%16
-            b1 = r1//16
-            b2 = r2//16
-            r1 = a1*16+a2
-            r2 = b1*16+b2
+            
             if i==0 and j==0:
                 # if r1!=0:
                 #     img1_rgb, img2_rgb = img2_rgb, img1_rgb         #上下の交換
@@ -39,7 +34,15 @@ def read_bmp(fname1,fname2):
             #     channel = r1                                        #チャンネルの設定
             else:
                 #data[i][j] = r1*256+r2-32768
-                data.append(r1*256+r2-32768)                        #データの追加
+                data1 = 0
+                for _ in range(16):
+                    data1 += (r1&1)
+                    r1>>=1
+                    data1 <<= 1
+                    data1 += (r2&1)
+                    r2>>=1
+                    data1<<=1
+                data.append(data1)                        #データの追加
     return data
 
 def main():
