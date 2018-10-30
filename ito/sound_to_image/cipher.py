@@ -32,9 +32,18 @@ def get_data(sound):
     channels = sound.getnchannels()
     print(len(buffer))
     for i in buffer:
+        a_0b = ""
+        b_0b = ""
         tmp = 32768+i
-        data_a.append(tmp // 256)
-        data_b.append(tmp % 256)
+        for j in range(16):
+            if j%2 == 0:
+                a_0b += str(tmp&0b1)
+                tmp >>= 1
+            else:
+                b_0b += str(tmp&0b1)
+                tmp >>= 1
+        data_a.append(int(a_0b, 2))
+        data_b.append(int(b_0b, 2))
     data = [data_a, data_b, channels]
     return data
 
