@@ -140,5 +140,12 @@ if __name__ == "__main__":
     mk_button(cnt=9,icon="2",relief="raised",bx=990,by=225,w=140,h=140,func=play_output)
     mk_button(cnt=10,icon="7",relief="raised",bx=990,by=385,w=140,h=70,func=play_output)
 
+    # menu_bar
+    menu_bar = Menu(root)
+    root.config(menu = menu_bar)
+    file_menu = Menu(menu_bar, tearoff=0)
+    file_menu.add_command(label="Exit", command=quit)
+    menu_bar.add_cascade(label="Files", menu=file_menu)
+
     root.mainloop()
     
