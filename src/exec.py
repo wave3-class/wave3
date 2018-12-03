@@ -13,7 +13,7 @@ import array
 import decryption
 import cipher
 import play_file
-import embed_v2
+import embed_v3
 import pyaudio
 
 IMG1="a"
@@ -45,8 +45,8 @@ def encode(event):                                             #ボタン1の処
     w=wave.open(fname)                                        #入力ファイルを開く   
     cipher.print_info(w)                                      #情報の出力     
     cipher.make_cip(cipher.get_data(w))                              #画像ファイルの出力
-    embed_v2.embed(IMG1,"lenna_c.bmp")
-    embed_v2.embed(IMG2,"lenna_c.bmp")
+    embed_v3.embed(IMG1,"lenna_c.bmp")
+    embed_v3.embed(IMG2,"lenna_c.bmp")
     #global info
     #info = tkinter.Label(root,text="音声は画像に変換されました！",font=16)
     #info.place(x=150,y=500)
