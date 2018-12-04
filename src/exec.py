@@ -13,8 +13,9 @@ import array
 import decryption
 import cipher
 import play_file
-import embed_v3
+import embed_v2
 import pyaudio
+import glob
 
 IMG1="a"
 IMG2="b"
@@ -28,6 +29,7 @@ frame = []                 #画像埋め込み用リスト
 im = []
 ic = []
 INPUTFILE = NONE
+EMBED_IMG = "lenna_c.bmp"
 
 def dialog():                                                          #ダイアログ作成
     fTyp = [("","*.wav")]                                               #拡張子限定
@@ -45,8 +47,8 @@ def encode(event):                                             #ボタン1の処
     w=wave.open(fname)                                        #入力ファイルを開く   
     cipher.print_info(w)                                      #情報の出力     
     cipher.make_cip(cipher.get_data(w))                              #画像ファイルの出力
-    embed_v3.embed(IMG1,"lenna_c.bmp")
-    embed_v3.embed(IMG2,"lenna_c.bmp")
+    embed_v2.embed(IMG1,EMBED_IMG)
+    embed_v2.embed(IMG2,EMBED_IMG)
     #global info
     #info = tkinter.Label(root,text="音声は画像に変換されました！",font=16)
     #info.place(x=150,y=500)
@@ -111,6 +113,27 @@ def mk_button(cnt,icon,relief,bx,by,w,h,func):
     button.bind("<Button-1>",func)
     button.pack()
 
+def get_list():
+    ls = glob.glob("./*.jpg")
+    for i in range(len(ls)):
+        ls[i] = ls[i][2:]
+    return ls
+
+def chan_embed_img(event):
+    global EMBED_IMG
+    EMBED_IMG = v1.get()
+    embed_v2.embed(IMG1,EMBED_IMG)
+    embed_v2.embed(IMG2,EMBED_IMG)
+
+def mk_combobox(v1,cnt,bx,by,w,h):
+    frame.append(tkinter.Frame(root,width=w,height=h))
+    frame[cnt].place(x=bx,y=by)
+    cb = ttk.Combobox(frame[cnt], textvariable=v1)
+    cb.bind('<<ComboboxSelected>>',chan_embed_img)
+    lst = tuple(get_list())
+    cb['values'] = lst
+    cb.set("ファイルを選択してください")
+    cb.grid(row=0, column=0)
 #---------------
 
 if __name__ == "__main__":
@@ -121,6 +144,7 @@ if __name__ == "__main__":
     label_info = Label(root,textvariable = info,font=16)
     label_info.place(x=450,y=600)
     info.set("presented by WAVE3")
+    v1 = tkinter.StringVar()
     """
     mk_button(str="変換",c="blue",bx=100,by=300,func=encode)
     mk_button(str="画像1を表示",c="green",bx=300,by=200,func=show_img1)
@@ -139,13 +163,7 @@ if __name__ == "__main__":
     mk_button(cnt=8,icon="4",relief="flat",bx=720,by=335,w=250,h=140,func=nothing)
     mk_button(cnt=9,icon="2",relief="raised",bx=990,by=225,w=140,h=140,func=play_output)
     mk_button(cnt=10,icon="7",relief="raised",bx=990,by=385,w=140,h=70,func=play_output)
-
-    # menu_bar
-    menu_bar = Menu(root)
-    root.config(menu = menu_bar)
-    file_menu = Menu(menu_bar, tearoff=0)
-    file_menu.add_command(label="Exit", command=quit)
-    menu_bar.add_cascade(label="Files", menu=file_menu)
+    mk_combobox(v1=v1,cnt=11,bx=530,by=550,w=100,h=100)
 
     root.mainloop()
     
