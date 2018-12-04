@@ -159,11 +159,18 @@ if __name__ == "__main__":
     mk_button(cnt=4,icon="6",relief="flat",bx=240,by=335,w=220,h=140,func=nothing)
     mk_button(cnt=5,icon="8",relief="raised",bx=480,by=65,w=200,h=200,func=show_img1)
     mk_button(cnt=6,icon="8",relief="raised",bx=480,by=305,w=200,h=200,func=show_img2)
-    mk_button(cnt=7,icon="5",relief="flat",bx=720,by=115,w=250,h=140,func=nothing)
-    mk_button(cnt=8,icon="4",relief="flat",bx=720,by=335,w=250,h=140,func=nothing)
+    mk_button(cnt=7,icon="5",relief="flat",bx=720,by=115,w=250,h=140,func=decode)
+    mk_button(cnt=8,icon="4",relief="flat",bx=720,by=335,w=250,h=140,func=decode)
     mk_button(cnt=9,icon="2",relief="raised",bx=990,by=225,w=140,h=140,func=play_output)
     mk_button(cnt=10,icon="7",relief="raised",bx=990,by=385,w=140,h=70,func=play_output)
     mk_combobox(v1=v1,cnt=11,bx=530,by=550,w=100,h=100)
 
+    # menu_bar
+    menu_bar = Menu(root)
+    root.config(menu = menu_bar)
+    file_menu = Menu(menu_bar, tearoff=0)
+    file_menu.add_command(label="Exit", command=quit)
+    menu_bar.add_cascade(label="Files", menu=file_menu)
+    
     root.mainloop()
     
