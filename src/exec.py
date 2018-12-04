@@ -13,7 +13,7 @@ import array
 import decryption
 import cipher
 import play_file
-import embed_v2
+import embed_v3
 import pyaudio
 import glob
 
@@ -47,8 +47,8 @@ def encode(event):                                             #ボタン1の処
     w=wave.open(fname)                                        #入力ファイルを開く   
     cipher.print_info(w)                                      #情報の出力     
     cipher.make_cip(cipher.get_data(w))                              #画像ファイルの出力
-    embed_v2.embed(IMG1,EMBED_IMG)
-    embed_v2.embed(IMG2,EMBED_IMG)
+    embed_v3.embed(IMG1,EMBED_IMG)
+    embed_v3.embed(IMG2,EMBED_IMG)
     #global info
     #info = tkinter.Label(root,text="音声は画像に変換されました！",font=16)
     #info.place(x=150,y=500)
@@ -115,6 +115,8 @@ def mk_button(cnt,icon,relief,bx,by,w,h,func):
 
 def get_list():
     ls = glob.glob("./*.jpg")
+    ls += glob.glob("./*.png")
+    ls += glob.glob("./*.bmp")
     for i in range(len(ls)):
         ls[i] = ls[i][2:]
     return ls
@@ -122,8 +124,8 @@ def get_list():
 def chan_embed_img(event):
     global EMBED_IMG
     EMBED_IMG = v1.get()
-    embed_v2.embed(IMG1,EMBED_IMG)
-    embed_v2.embed(IMG2,EMBED_IMG)
+    embed_v3.embed(IMG1,EMBED_IMG)
+    embed_v3.embed(IMG2,EMBED_IMG)
 
 def mk_combobox(v1,cnt,bx,by,w,h):
     frame.append(tkinter.Frame(root,width=w,height=h))
