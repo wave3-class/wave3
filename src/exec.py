@@ -62,7 +62,7 @@ def show_img1(event):  # ボタン2の処理
     global img1
     img1 = ImageTk.PhotoImage(Image.open(IMG1+".png"))
     sub = Toplevel(root)
-    sub.title(IMG1+".png")
+    sub.title(IMG1[4:]+".png")
     frame = tkinter.Frame(sub)
     frame.pack()
     label = tkinter.Label(frame, image=img1)
@@ -76,7 +76,7 @@ def show_img2(event):  # ボタン3の処理
     global img2
     img2 = ImageTk.PhotoImage(Image.open(IMG2+".png"))
     sub = Toplevel(root)
-    sub.title(IMG2+".png")
+    sub.title(IMG2[4:]+".png")
     frame = tkinter.Frame(sub)
     frame.pack()
     label = tkinter.Label(frame, image=img2)
@@ -97,7 +97,7 @@ def decode(event):  # ボタン4の処理、画像を音声に逆変換
 
 
 def play_input(event):
-    info.set(INPUTFILE+"を再生しました")
+    info.set(INPUTFILE[5:]+"を再生しました")
     play_file.wave_play(INPUTFILE)
 
 
