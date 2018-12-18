@@ -40,7 +40,7 @@ def dialog():  # ダイアログ作成
         filetypes=fTyp, initialdir=iDir+"/wave")
     # filename=(os.path.basename(filename))                    #ファイル名
     global INPUTFILE
-    INPUTFILE = (os.path.basename(filename))
+    INPUTFILE = "wave/"+(os.path.basename(filename))
     return filename  # フルパスを戻り値
 
 
