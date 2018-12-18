@@ -127,11 +127,12 @@ def mk_button(cnt, icon, relief, bx, by, w, h, func):
 
 
 def get_list():
-    ls = glob.glob("./*.jpg")
-    ls += glob.glob("./*.png")
-    ls += glob.glob("./*.bmp")
+    ls = glob.glob("./image/*.jpg")
+    ls += glob.glob("./image/*.png")
+    ls += glob.glob("./image/*.bmp")
     for i in range(len(ls)):
         ls[i] = ls[i][2:]
+        ls[i] = ls[i][6:]
     return ls
 
 
@@ -139,8 +140,8 @@ def chan_embed_img(event):
     global EMBED_IMG1, EMBED_IMG2
     EMBED_IMG1 = v1.get()
     EMBED_IMG2 = v2.get()
-    embed_v3.embed(IMG1, EMBED_IMG1)
-    embed_v3.embed(IMG2, EMBED_IMG2)
+    embed_v3.embed(IMG1, "image/"+EMBED_IMG1)
+    embed_v3.embed(IMG2, "image/"+EMBED_IMG2)
 
 
 def mk_combobox(v1, cnt, bx, by, w, h):
