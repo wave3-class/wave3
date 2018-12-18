@@ -17,8 +17,8 @@ import embed_v3
 import pyaudio
 import glob
 
-IMG1 = "a"
-IMG2 = "b"
+IMG1 = "tmp/a"
+IMG2 = "tmp/b"
 FRAME_RATE = 44100
 input_name = "input.wav"
 output_name = "output.tmp"
@@ -29,7 +29,7 @@ frame = []  # 画像埋め込み用リスト
 im = []
 ic = []
 INPUTFILE = NONE
-EMBED_IMG = "lenna_c.bmp"
+EMBED_IMG = "image/lenna_c.bmp"
 
 
 def dialog():  # ダイアログ作成
@@ -37,7 +37,7 @@ def dialog():  # ダイアログ作成
     iDir = os.path.abspath(os.path.dirname(__file__))  # ディレクリ変数
     # tkinter.messagebox.showinfo("wave","入力ファイルを選択してください！")
     filename = tkinter.filedialog.askopenfilename(
-        filetypes=fTyp, initialdir=iDir)
+        filetypes=fTyp, initialdir=iDir+"/wave")
     # filename=(os.path.basename(filename))                    #ファイル名
     global INPUTFILE
     INPUTFILE = (os.path.basename(filename))
@@ -103,7 +103,7 @@ def play_input(event):
 
 def play_output(event):
     info.set("out.wavを再生しました")
-    play_file.wave_play("out.wav")
+    play_file.wave_play("output/out.wav")
 
 
 def nothing(event):
@@ -115,11 +115,11 @@ def nothing(event):
 def mk_button(cnt, icon, relief, bx, by, w, h, func):
     frame.append(tkinter.Frame(root, bd=2, relief=relief, width=w, height=h))
     frame[cnt].place(x=bx, y=by)
-    im.append(Image.open(icon+".png"))
+    im.append(Image.open("component/"+icon+".png"))
     img_resize = im[cnt].resize((w, h))
     iDir = os.path.abspath(os.path.dirname(__file__))
-    img_resize.save(iDir+"/"+icon+"_resized.png")
-    ic.append(PhotoImage(file=icon+"_resized.png"))
+    img_resize.save(iDir+"/component/"+icon+"_resized.png")
+    ic.append(PhotoImage(file="component/"+icon+"_resized.png"))
     button = tkinter.Button(
         frame[cnt], relief=relief, image=ic[cnt], width=w, height=h)
     button.bind("<Button-1>", func)

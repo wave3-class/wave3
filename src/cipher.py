@@ -36,11 +36,11 @@ def get_data(sound):
         b_0b = ""
         tmp = 32768+i
         for j in range(16):
-            if j%2 == 0:
-                a_0b += str(tmp&0b1)
+            if j % 2 == 0:
+                a_0b += str(tmp & 0b1)
                 tmp >>= 1
             else:
-                b_0b += str(tmp&0b1)
+                b_0b += str(tmp & 0b1)
                 tmp >>= 1
         data_a.append(int(a_0b, 2))
         data_b.append(int(b_0b, 2))
@@ -70,8 +70,8 @@ def make_cip(data):
                 new_a.putpixel((x, y), (a, a, a))
                 new_b.putpixel((x, y), (b, b, b))
             i += 1
-    new_a.save("a.bmp")
-    new_b.save("b.bmp")
+    new_a.save("tmp/a.bmp")
+    new_b.save("tmp/b.bmp")
     return 0
 
 
